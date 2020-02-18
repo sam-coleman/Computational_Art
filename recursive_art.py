@@ -5,7 +5,7 @@ Soft Des Spring 2020 Mini Project 2: Computational Art
 
 import random
 from PIL import Image
-from math import pi, sin, cos
+from math import pi, sin, cos, tan
 
 
 def build_random_function(min_depth, max_depth):
@@ -14,6 +14,11 @@ def build_random_function(min_depth, max_depth):
     Builds a random function of depth at least min_depth and depth at most
     max_depth. (See the assignment write-up for the definition of depth
     in this context)
+
+    Added building blocks (operations):
+    3quarter: adds f[1] and f[2] and mulitiplies by 0.75
+    avg_trig: finds the average of sin_pi[f1] and cos_pi[f2]
+    trig_prod: mulitplies cos_pi[f1] and sin_pi[f2]
 
     Args:
         min_depth: the minimum depth of the random function
@@ -26,10 +31,9 @@ def build_random_function(min_depth, max_depth):
     """
     # TODO: implement this
     random_function = []
-    operations = ['x', 'y', 'prod', 'avg', 'cos_pi', 'sin_pi']
-    random_func = random.randint(2,5)
+    operations = ['x', 'y', 'prod', 'avg', 'cos_pi', 'sin_pi', '3quarter', 'avg_trig', 'trig_prod']
+    random_func = random.randint(2, len(operations) - 1)
     random_var = random.randint(0,1)
-    end_possibility = random.randint(0,2)
     random_function.append(operations[random_func])
 
     if min_depth < 2:
@@ -70,6 +74,14 @@ def evaluate_random_function(f, x, y):
         return cos(pi * evaluate_random_function(f[1], x, y))
     elif f[0] == ["sin_pi"]:
         return sin(pi * evaluate_random_function(f[1], x, y))
+    elif f[0] == ["3quarter"]:
+        return .75 * (evaluate_random_function(f[1], x, y) + evaluate_random_function(f[2], x, y))
+    elif f[0] == ["avg_trig"]:
+        return .5 * (sin(pi * evaluate_random_function(f[1], x, y)) + cos(pi * evaluate_random_function(f[2], x, y)))
+    elif f[0] == ["trig_prod"]:
+        return cos(pi * evaluate_random_function(f[1], x, y)) * sin(pi * evaluate_random_function(f[2], x, y))
+    #elif f[0] == ["quarter"]:
+        #return .25 * (evaluate_random_function(f[1], x, y) + evaluate_random_function(f[2], x, y))
 
 def remap_interval(val,
                    input_interval_start,
@@ -184,6 +196,9 @@ def generate_art(filename, x_size=350, y_size=350):
     im.save(filename)
 
 
+for i in range(15,20,1):
+    generate_art("example%i.png" % (i))
+
 if __name__ == '__main__':
     import doctest
     #doctest.testmod()
@@ -192,7 +207,7 @@ if __name__ == '__main__':
     # Create some computational art!
     # TODO: Un-comment the generate_art function call after you
     #       implement remap_interval and evaluate_random_function
-    generate_art("Test4.png")
+    #generate_art("Test26.png")
 
     # Test that PIL is installed correctly
     # TODO: Comment or remove this function call after testing PIL install
