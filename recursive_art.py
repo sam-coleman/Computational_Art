@@ -25,19 +25,19 @@ def build_random_function(min_depth, max_depth):
         these functions)
     """
     # TODO: implement this
-    function = []
+    random_function = []
     operations = ['x', 'y', 'prod', 'avg', 'cos_pi', 'sin_pi']
     random_func = random.randint(2,5)
     random_var = random.randint(0,1)
     end_possibility = random.randint(0,2)
-    print(function)
-    function.append(operations[random_func])
+    #print(random_function)
+    random_function.append(operations[random_func])
 
     if min_depth < 2:
-        return function.append(operations[random_var])
+        return [random_function, operations[random_var]]
     else:
-        print(function)
-        return build_random_function(min_depth - 1, max_depth - 1)
+        #print(random_function)
+        return [random_function, build_random_function(min_depth - 1, max_depth - 1)]
 
 print(build_random_function(7,9))
 
