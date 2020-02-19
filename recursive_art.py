@@ -5,7 +5,7 @@ Soft Des Spring 2020 Mini Project 2: Computational Art
 
 import random
 from PIL import Image
-from math import pi, sin, cos, tan
+from math import pi, sin, cos
 
 
 def build_random_function(min_depth, max_depth):
@@ -80,8 +80,6 @@ def evaluate_random_function(f, x, y):
         return .5 * (sin(pi * evaluate_random_function(f[1], x, y)) + cos(pi * evaluate_random_function(f[2], x, y)))
     elif f[0] == ["trig_prod"]:
         return cos(pi * evaluate_random_function(f[1], x, y)) * sin(pi * evaluate_random_function(f[2], x, y))
-    #elif f[0] == ["quarter"]:
-        #return .25 * (evaluate_random_function(f[1], x, y) + evaluate_random_function(f[2], x, y))
 
 def remap_interval(val,
                    input_interval_start,
@@ -177,9 +175,9 @@ def generate_art(filename, x_size=350, y_size=350):
     #red_function = ["x"]
     #green_function = ["y"]
     #blue_function = ["x"]
-    red_function = build_random_function(7, 9)
-    green_function = build_random_function(7, 9)
-    blue_function = build_random_function(7, 9)
+    red_function = build_random_function(7, 10)
+    green_function = build_random_function(7, 10)
+    blue_function = build_random_function(7, 10)
     # Create image and loop over all pixels
     im = Image.new("RGB", (x_size, y_size))
     pixels = im.load()
@@ -196,18 +194,18 @@ def generate_art(filename, x_size=350, y_size=350):
     im.save(filename)
 
 
-for i in range(15,20,1):
-    generate_art("example%i.png" % (i))
+#for i in range(40,45,1):
+    #generate_art("example%i.png" % (i))
 
 if __name__ == '__main__':
     import doctest
     #doctest.testmod()
-    #doctest.run_docstring_examples(remap_interval, globals(), verbose = False)
+    doctest.run_docstring_examples(remap_interval, globals(), verbose = False)
 
     # Create some computational art!
     # TODO: Un-comment the generate_art function call after you
     #       implement remap_interval and evaluate_random_function
-    #generate_art("Test26.png")
+    generate_art("Test42.png")
 
     # Test that PIL is installed correctly
     # TODO: Comment or remove this function call after testing PIL install
